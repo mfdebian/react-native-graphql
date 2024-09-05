@@ -4,6 +4,9 @@ import { useQuery, gql } from "@apollo/client";
 type Launch = {
   id: string;
   mission_name: string;
+  rocket: {
+    rocket_name: string;
+  }
 };
 
 type LaunchesData = {
@@ -15,6 +18,9 @@ const FILMS_QUERY = gql`
     launchesPast(limit: 10) {
       id
       mission_name
+      rocket {
+        rocket_name
+      }
     }
   }
 `;
@@ -30,7 +36,7 @@ export function Launches() {
       <h1 style={{ padding: 10 }}>SpaceX Launches</h1>
       <ul>
         {data?.launchesPast.map((launch: Launch) => (
-          <li key={launch.id}>{launch.mission_name}</li>
+          <li key={launch.id}>{launch.mission_name} on the {launch.rocket.rocket_name} rocket!</li>
         ))}
       </ul>
     </div>
